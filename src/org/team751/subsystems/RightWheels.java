@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 public class RightWheels extends PIDSubsystem {
-    public Encoder rightEncoder = new Encoder(2, 3, true, EncodingType.k2X); // port stuff, true means reported forward is always true forward
+    public Encoder rightEncoder = new Encoder(2, 3, true, EncodingType.k4X); // port stuff, true means reported forward is always true forward
 	public VictorSP rightDriveController1 = new VictorSP(3);
     public VictorSP rightDriveController2 = new VictorSP(4);
     public VictorSP rightDriveController3 = new VictorSP(5);
