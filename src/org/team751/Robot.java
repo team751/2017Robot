@@ -32,6 +32,14 @@ public class Robot extends IterativeRobot {
 	public static StateSenderUDP stateSenderUDP;
 
     Command autonomousCommand;
+	
+			/*Encoder Distance Constants*/
+        public static final double wheelDiameter = 6.25; //wheel 6 plus something around it
+        public static final double pulsePerRevolution = 360; //not certain if this is right
+//      public static final double encoderGearRatio = 3; //not sure what this is
+//      public static final double gearRatio = 64.0/20.0;
+//      public static final double Fudgefactor = 1.0;
+	final double distancePerPulse = Math.PI * wheelDiameter / pulsePerRevolution;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -40,6 +48,11 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		oi.autoButton.whenPressed(new GearPlacement());
+	    
+	    	// set distancePerpulse for the encoders
+		drivetrain.leftEncoder.setDistancePerPulse(distancePerPulse);
+		drivetrain.rightEncoder.setDistancePerPulse(distancePerPulse);
+	    
         // instantiate the command used for the autonomous period
         autonomousCommand = new Autonomous();    
         Thread motorControlThread = new Thread(autonomousJoystickSimulator);
