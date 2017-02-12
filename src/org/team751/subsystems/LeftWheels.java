@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 public class LeftWheels extends PIDSubsystem {
-	public Encoder leftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+	public Encoder leftEncoder = new Encoder(0, 1, true, Encoder.EncodingType.k4X);
 	VictorSP leftDriveController1 = new VictorSP(0);
 	VictorSP leftDriveController2 = new VictorSP(1);
     VictorSP leftDriveController3 = new VictorSP(2);
