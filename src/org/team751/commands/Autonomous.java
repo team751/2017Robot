@@ -6,21 +6,19 @@ import org.team751.CheesyDrive.MotorOutputs;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-
 /**
  *
  */
 public class Autonomous extends Command {
 	private static final double timeToDrive = 15;
-	private static final double leftSpeed = 0.45;
-	// 1.216 (0.225/0.185) in C7
-	// 0.925 in Bellarmine
+	private static double leftSpeed = 0.45;
 	private static final double ratio = 0.95;
-	private static final double rightSpeed = -leftSpeed;
+	private static double rightSpeed = -leftSpeed;
 	private static double totalCurrent;
 	
 	// Currentlimit when driving forward is 40 at Bellarmine
 	private static double currentLimit = 40;
+	
 
 	Timer timer = new Timer();
 
@@ -40,17 +38,21 @@ public class Autonomous extends Command {
 		double time = timer.get();
 		if (Robot.crushed) {
 			end();
-		} else if (Robot.drivetrain.switch4.get()) {
+		}else {
 			driveForward(time);
-		} else if (Robot.drivetrain.switch5.get()) {
-			centerForward(time);
-		} else if (Robot.drivetrain.switch6.get()) {
-			leftGoLeft(time);
-		} else if (Robot.drivetrain.switch7.get()) {
-			rightGoRight(time);
-		} else {
-			end(); //no auto when all switches are turned off
 		}
+		//currently testing on the Castle Crusher
+//		else if (Robot.drivetrain.switch4.get()) {
+//			driveForward(time);
+//		} else if (Robot.drivetrain.switch5.get()) {
+//			centerForward(time);
+//		} else if (Robot.drivetrain.switch6.get()) {
+//			leftGoLeft(time);
+//		} else if (Robot.drivetrain.switch7.get()) {
+//			rightGoRight(time);
+//		} else {
+//			end(); //no auto when all switches are turned off
+//		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -82,9 +84,13 @@ public class Autonomous extends Command {
 	}
 
 	protected void centerForward(double time) {
-		if (time <= 5) {
+		double startingDistance = Robot.ADL.getLeftDistance();
+		if (Robot.ADL.getLeftDistance() < 50) {
 			if (time > 1 && totalCurrent > currentLimit) {
 				Robot.crushed = true;
+			}
+			if(Robot.ADL.getLeftVelocity() > Robot.ADL.getRightVelocity()) {
+				leftSpeed -= 0.01;
 			}
 			Robot.drivetrain.setLeftSpeed(leftSpeed * 0.75);
 			Robot.drivetrain.setRightSpeed(rightSpeed * 0.75);

@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static JoystickInputUDP autonomousJoystickSimulator;
 //	public static StateSenderUDP stateSenderUDP;
 	public static boolean crushed = false;
-//	public static ArduinoDataListener ADL = new ArduinoDataListener(7776);
+	public static ArduinoDataListener ADL;
 
     Command autonomousCommand;
 
@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new Autonomous();    
         Thread motorControlThread = new Thread(autonomousJoystickSimulator);
         motorControlThread.start();
-        
+        ADL = new ArduinoDataListener(7776);
 //        Thread imuThread = new Thread();
         
 //        try {
