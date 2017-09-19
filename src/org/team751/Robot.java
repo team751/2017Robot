@@ -30,8 +30,10 @@ public class Robot extends IterativeRobot {
 	
 	public static JoystickInputUDP autonomousJoystickSimulator;
 //	public static StateSenderUDP stateSenderUDP;
-	public static boolean crushed = false;
+	private static boolean crushed = false;
 	public static ArduinoDataListener ADL;
+	private static double startDistance;
+	private static double startHeading;
 
     Command autonomousCommand;
 
@@ -71,8 +73,10 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	crushed = false;
+    	startDistance = ADL.getDistance();
+    	startHeading = ADL.getHeading();
         if (autonomousCommand != null) autonomousCommand.start();
-        crushed = false;
+        
     }
 
     /**
@@ -121,5 +125,21 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    public static boolean isCrushed() {
+    	return crushed;
+    }
+    
+    public static void setCrushed() {
+    	crushed = true;
+    }
+    
+    public static double getStartDistance() {
+    	return startDistance;
+    }
+    
+    public static double getStartHeading() {
+    	return startHeading;
     }
 }

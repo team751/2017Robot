@@ -128,4 +128,12 @@ public class ArduinoDataListener implements Runnable {
 	public void stop() {
 		this.isRunning = false;
 	}
+	
+	public double getVelocity() {
+		return (leftSideData.velocity + rightSideData.velocity) / 2;
+	}
+	
+	public double getDistance() {
+		return (leftSideData.distance + rightSideData.distance) / 2;
+	}
 }

@@ -36,7 +36,7 @@ public class Autonomous extends Command {
 	protected void execute() {
 		totalCurrent = Robot.drivetrain.pdp.getTotalCurrent();
 		double time = timer.get();
-		if (Robot.crushed) {
+		if (Robot.isCrushed()) {
 			end();
 		}else {
 			driveForward(time);
@@ -76,7 +76,7 @@ public class Autonomous extends Command {
 	protected void driveForward(double time) {
 		if (time <= 3.75) { //to be adjusted in the field
 			if (time > 1 && totalCurrent > currentLimit) {
-				Robot.crushed = true;
+				Robot.setCrushed();
 			}
 			Robot.drivetrain.setLeftSpeed(leftSpeed*0.75);
 			Robot.drivetrain.setRightSpeed(rightSpeed*0.75);
@@ -87,11 +87,11 @@ public class Autonomous extends Command {
 		double startingDistance = Robot.ADL.getLeftDistance();
 		if (Robot.ADL.getLeftDistance() < 50) {
 			if (time > 1 && totalCurrent > currentLimit) {
-				Robot.crushed = true;
+				Robot.setCrushed();
 			}
-			if(Robot.ADL.getLeftVelocity() > Robot.ADL.getRightVelocity()) {
-				leftSpeed -= 0.01;
-			}
+//			if(Robot.ADL.getLeftVelocity() > Robot.ADL.getRightVelocity()) {
+//				leftSpeed -= 0.01;
+//			}
 			Robot.drivetrain.setLeftSpeed(leftSpeed * 0.75);
 			Robot.drivetrain.setRightSpeed(rightSpeed * 0.75);
 		}
@@ -106,7 +106,7 @@ public class Autonomous extends Command {
 			turnCW();
 		} else if (time < 10) { // turn left
 			if (time > 2.4 && totalCurrent > currentLimit) {
-				Robot.crushed = true;
+				Robot.setCrushed();
 			}
 			Robot.drivetrain.setLeftSpeed(leftSpeed * 0.75);
 			Robot.drivetrain.setRightSpeed(rightSpeed * 0.75);
@@ -123,7 +123,7 @@ public class Autonomous extends Command {
 					turnCCW();
 				} else if (time < 10) { // turn left
 					if (time > 2.4 && totalCurrent > currentLimit) {
-						Robot.crushed = true;
+						Robot.setCrushed();
 					}
 					Robot.drivetrain.setLeftSpeed(leftSpeed * 0.75);
 					Robot.drivetrain.setRightSpeed(rightSpeed * 0.75);
