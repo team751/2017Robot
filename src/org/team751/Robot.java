@@ -8,6 +8,7 @@ import org.team751.commands.Autonomous;
 import org.team751.jetson.JoystickInputUDP;
 import org.team751.jetson.StateSenderUDP;
 import org.team751.subsystems.Drivetrain;
+import org.team751.subsystems.GooglyEyes;
 import org.team751.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,14 +27,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Winch winch = new Winch();
+	public static final GooglyEyes googlyEyes = new GooglyEyes();
 	public static OI oi;
 	
 	public static JoystickInputUDP autonomousJoystickSimulator;
 //	public static StateSenderUDP stateSenderUDP;
 	private static boolean crushed = false;
 	public static ArduinoDataListener ADL;
-	private static double startDistance;
-	private static double startHeading;
 
     Command autonomousCommand;
 
@@ -73,10 +73,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	crushed = false;
-    	startDistance = ADL.getDistance();
-    	startHeading = ADL.getHeading();
         if (autonomousCommand != null) autonomousCommand.start();
-        
     }
 
     /**
@@ -108,16 +105,6 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-       
-//Current check        
-//        System.out.println("Total Current: " + Robot.drivetrain.pdp.getTotalCurrent());
-//        System.out.print("Left Motors: " + "Motor1: " + Robot.drivetrain.pdp.getCurrent(3) + ",");
-//        System.out.print("Motor3: " + Robot.drivetrain.pdp.getCurrent(2) + ",");
-//        System.out.print("Motor5: " + Robot.drivetrain.pdp.getCurrent(1) + ",");
-//        System.out.print("Right Motors: " + "Motor0: " + Robot.drivetrain.pdp.getCurrent(0) + ",");
-//        System.out.print("Motor2: " + Robot.drivetrain.pdp.getCurrent(13) + ",");
-//        System.out.print("Motor4: " + Robot.drivetrain.pdp.getCurrent(14) + ",");
-//        System.out.println();
     }
     
     /**
@@ -135,11 +122,4 @@ public class Robot extends IterativeRobot {
     	crushed = true;
     }
     
-    public static double getStartDistance() {
-    	return startDistance;
-    }
-    
-    public static double getStartHeading() {
-    	return startHeading;
-    }
 }
