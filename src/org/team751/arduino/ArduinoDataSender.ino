@@ -56,13 +56,13 @@ void sendData() {
 }
 
 int getRotation() {
-  return 420;
+  // Rotation data
 }
 
 int getDistanceTraveled() {
-  return 69;
+  // Distance data
 }
 
 int getVelocity() {
-  return 360;
+ // Velocity data
 }
